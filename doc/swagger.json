@@ -1,0 +1,236 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "工大祭アプリ制作のためのモックAPIです。本番バージョンと大幅に置き換わる可能性があるので、柔軟に対応できるようにしておいてください。",
+    "version": "0.0.1",
+    "title": "工大祭アプリMock"
+  },
+  "host": "fesapp-mock.to-hutohu.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "ブース情報",
+      "description": "ブースの情報を取得します"
+    },
+    {
+      "name": "チャット機能",
+      "description": "簡易的なチャット機能を提供します。認証とかは置いていないので個人情報は投稿しないようにしてください"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/booths": {
+      "get": {
+        "tags": [
+          "ブース情報"
+        ],
+        "summary": "ブース情報の一覧を取得します",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "適切に取得できました",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Booth"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/{device}/{id}": {
+      "get": {
+        "tags": [
+          "チャット機能"
+        ],
+        "summary": "メッセージ一覧を取得します",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "device",
+            "in": "path",
+            "description": "各アプリ固有の値",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "企画ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常に取得されました",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Message"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "チャット機能"
+        ],
+        "summary": "メッセージを投稿します",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "device",
+            "in": "path",
+            "description": "各アプリ固有の値",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "企画ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "message",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "メッセージ本文です",
+                  "type": "string",
+                  "example": "poi"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "正常に投稿されました"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Message": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "メッセージ本文です",
+          "type": "string",
+          "example": "poyo"
+        },
+        "you": {
+          "description": "あなたのメッセージかどうかです",
+          "type": "boolean",
+          "example": false
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "timestamp",
+          "example": 1532409117378
+        }
+      }
+    },
+    "Booth": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "C-04"
+        },
+        "org_name": {
+          "type": "string",
+          "example": "工大祭アプリ製作会"
+        },
+        "plan_name": {
+          "type": "string",
+          "example": "工大祭アプリ"
+        },
+        "place": {
+          "type": "string",
+          "example": "70周年記念講堂前テント"
+        },
+        "time_day1": {
+          "type": "string",
+          "example": "10:00～18:00"
+        },
+        "time_day2": {
+          "type": "string",
+          "example": "10:00～18:00"
+        },
+        "description": {
+          "type": "string",
+          "example": "工大祭アプリ製作会の展示テントです。ここでアプリの解説や質疑応答、また東工大内のヒートマップの展示を行っています。"
+        },
+        "icon_url": {
+          "type": "string",
+          "example": null
+        },
+        "recommended": {
+          "type": "string",
+          "example": false
+        },
+        "for_family": {
+          "type": "boolean",
+          "example": false
+        },
+        "for_preparatory_student": {
+          "type": "boolean",
+          "example": false
+        },
+        "for_university_student": {
+          "type": "boolean",
+          "example": false
+        },
+        "genre": {
+          "type": "string",
+          "example": null
+        },
+        "information": {
+          "type": "string",
+          "example": null
+        },
+        "rainy": {
+          "type": "string",
+          "example": "雨天時は西9号館3階W933講義室(traPの展示)内で受け付けています"
+        },
+        "category": {
+          "type": "string",
+          "example": "cohost"
+        },
+        "icon_url_small": {
+          "type": "string",
+          "example": "https://static.fesapp17.trap.show/small/C-04.png"
+        },
+        "icon_url_large": {
+          "type": "string",
+          "example": "https://static.fesapp17.trap.show/large/C-04.png"
+        },
+        "icon_url_original": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    }
+  }
+}

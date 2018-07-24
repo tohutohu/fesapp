@@ -1,0 +1,20 @@
+version: "2"
+services:
+  app:
+    image: node
+    command: bash -c 'npm i && node server.js'
+    environment:
+      VIRTUAL_HOST: fesapp-mock.to-hutohu.com
+      LETSENCRYPT_HOST: fesapp-mock.to-hutohu.com
+      LETSENCRYPT_EMAIL: tohu.soy@gmail.com
+    restart: always
+    working_dir: /work
+    volumes:
+      - .:/work
+    ports:
+      - 8080
+    networks:
+      - docker-nginx_default
+networks:
+  docker-nginx_default:
+    external: true
